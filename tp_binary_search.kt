@@ -1,41 +1,55 @@
 fun main() {
-    // Création des deux listes non triées
-    val list1 = listOf(10, 3, 5, 7, 8)
-    val list2 = listOf(2, 6, 9, 4, 1)
-
-    // Fusion des deux listes
+    // Création de listes
+    val list1 = listOf(10, 2, 5, 18, 9, 25, 3)
+    val list2 = listOf(8, 7, 14, 30, 1, 4, 22, 50)
+    
+    // Fusionner les liste pour avoir une liste complète
     val mergedList = list1 + list2
-
-    // Tri de la liste fusionnée
+    
+    println("Liste fusionnée: $mergedList")
+    
     val sortedList = mergedList.sorted()
-
-    // Fonction de recherche binaire
-    fun binarySearch(list: List<Int>, target: Int): Int {
-        var low = 0
-        var high = list.size - 1
-
-        while (low <= high) {
-            val mid = (low + high) / 2
-            val guess = list[mid]
-
-            if (guess == target) {
-                return mid
-            }
-            if (guess > target) {
-                high = mid - 1
-            } else {
-                low = mid + 1
-            }
-        }
-        return -1 // Élément non trouvé
-    }
-
-    // Test de la fonction de recherche binaire
-    val target = 6
-    val index = binarySearch(sortedList, target)
-    if (index != -1) {
-        println("L'élément $target est trouvé à l'index $index dans la liste triée.")
+    
+    println("Liste triée: $sortedList")
+    
+    // Test de la recherche par dichotomie
+    val target = 7
+    val targetIndex = binarySearch(listOf(1, 3, 4, 6, 7, 8, 10, 13, 14, 18, 19, 21, 24, 37, 40, 45, 71), target)
+    
+    if (targetIndex != -1) {
+        println("L'élément $target a été trouvé à l'index $targetIndex")
     } else {
-        println("L'élément $target n'est pas trouvé dans la liste triée.")
+        println("L'élément $target n'a pas été trouvé !")
     }
+    
+    
+    //dumbSearch(sortedList, target)
+}
+
+
+fun binarySearch(list: List<Int>, target: Int): Int {
+    var low = 0
+    var hight = list.size - 1
+
+    var counter = 0
+    
+    while(low <= hight) {
+        counter += 1
+        
+        val middle = (low + hight) / 2
+        val guess = list[middle]
+        
+        if (guess == target) {
+            println("$counter tours de boucles pour trouver l'élément")
+            return middle // Element trouvé
+        }
+        if (guess > target) {
+            hight = middle - 1
+        } else {
+            low = middle + 1
+        }
+    }
+    
+    println("$counter tours de boucles éffectués")
+    return -1 // Element non trouvé
 }
